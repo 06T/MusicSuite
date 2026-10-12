@@ -1,0 +1,37 @@
+{
+  "name": "music-suite",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "package:windows": "node scripts/package-windows.mjs",
+    "setup:imports": "node scripts/setup-imports.mjs",
+    "dev": "node server/index.ts --dev",
+    "build": "tsc --noEmit && vite build",
+    "start": "node server/index.ts"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/manrope": "^5.3.0",
+    "@phosphor-icons/react": "^2.1.10",
+    "express": "^5.3.0",
+    "multer": "^2.4.0",
+    "music-metadata": "^12.1.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.3.0",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4"
+  },
+  "license": "UNLICENSED"
+}

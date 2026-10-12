@@ -1,0 +1,14 @@
+{
+  "ignore": {
+    "files": [
+      ".cache/**",
+      ".tools/**",
+      ".npm-cache/**",
+      "dist/**",
+      "releases/**",
+      "data/**",
+      "test-results/**",
+      "playwright-report/**"
+    ]
+  }
+}

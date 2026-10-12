@@ -1,0 +1,57 @@
+{
+  "platform": "win32-x64",
+  "node": {
+    "version": "24.21.0",
+    "url": "https://nodejs.org/dist/v24.21.0/node-v24.21.0-win-x64.zip",
+    "sha256": "158f7685b44de51f6c0df1d153526cbcd3e1bc739a8dfc607721cef75de9e541"
+  },
+  "ytdlp": {
+    "version": "2026.08.19",
+    "url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.exe",
+    "sha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a",
+    "sourceUrl": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.tar.gz",
+    "sourceSha256": "072aad4f2a7604e92155f61a275a4752dc64046c8f6d90df3710525d94cd37c1"
+  },
+  "ffmpeg": {
+    "version": "9.0.2-25-g67b60c310b",
+    "url": "https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-10-11-13-04/ffmpeg-n9.0.2-25-g67b60c310b-win64-lgpl-shared-9.0.zip",
+    "sha256": "95cac2103cd9c4b9b19ef89849ed731ddba23b5864edf283ac6a2afbfadd0625",
+    "buildCommit": "63ac3265b0789ea16c7b1f8351cd2ad195a28722",
+    "provider": "https://github.com/BtbN/FFmpeg-Builds",
+    "sourceCommit": "67b60c310bc305c9b1c17d413431226570c2e500"
+  },
+  "sources": [
+    {
+      "name": "FFmpeg-source.tar.gz",
+      "url": "https://codeload.github.com/FFmpeg/FFmpeg/tar.gz/67b60c310bc305c9b1c17d413431226570c2e500",
+      "sha256": "50ba5035ca5b9fb71f80400e96ae995b51547c7283216182d734ab8e137e3656"
+    },
+    {
+      "name": "FFmpeg-build-recipes.tar.gz",
+      "url": "https://codeload.github.com/BtbN/FFmpeg-Builds/tar.gz/63ac3265b0789ea16c7b1f8351cd2ad195a28722",
+      "sha256": "4fd8856d5b207fce5c870a690aefc9a72b9a1943cfc79df8d5d327ec4612c9d2"
+    },
+    {
+      "name": "yt-dlp-source.tar.gz",
+      "url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.tar.gz",
+      "sha256": "072aad4f2a7604e92155f61a275a4752dc64046c8f6d90df3710525d94cd37c1"
+    },
+    {
+      "name": "mutagen-1.48.1.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/df/70/1675da133ea92227da41bf5b24e1c66be597ff736a1533ade41da986852f/mutagen-1.48.1.tar.gz",
+      "sha256": "8f95637ab9f6f305cec6bd1294e197debe207998e3e068596563c74f86b0a173"
+    },
+    {
+      "name": "certifi-2026.7.22.tar.gz",
+      "url": "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz",
+      "sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55"
+    }
+  ],
+  "notices": [
+    {
+      "name": "yt-dlp-third-party-notices.txt",
+      "url": "https://raw.githubusercontent.com/yt-dlp/yt-dlp/897341241f2bfb2439fe0367f4c7c9ccd29a3828/THIRD_PARTY_LICENSES.txt",
+      "sha256": "472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+Copyright (c) 2026 06T. All rights reserved.
+
+MusicSuite source code is provided for viewing. No permission is granted to
+reuse, modify, redistribute, sublicense, or sell the source code without the
+copyright holder's written permission.
+
+You may download and run official MusicSuite releases and source installations
+for personal use.
+
+Third-party software retains its own licenses and permissions. This notice
+does not change those licenses. Windows releases include the corresponding
+third-party notices, license texts, and source references.
