@@ -1,24 +1,24 @@
-# MusicSuite
+# MusicSuite — Slowed + Reverb Music Player
 
-Download music from YouTube and SoundCloud, import your own files, and make the sound your own.
+A local music player, slowed + reverb editor, and YouTube/SoundCloud audio downloader. Download tracks and playlists, adjust speed, reverb, and EQ in real time, then save your mix or export it as WAV.
 
 **No account needed. Your library stays on your computer.**
 
 [**Download for Windows**](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip) · [Release notes](https://github.com/06T/MusicSuite/releases/tag/v0.4.1) · [Checksum](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip.sha256)
 
-![MusicSuite music player and sound controls](docs/images/musicsuite-mono.png)
+![MusicSuite slowed and reverb music player, audio library, and live EQ controls](docs/images/musicsuite-mono.png)
 
 ## What you can do
 
-- **Download music:** save audio from YouTube videos, SoundCloud tracks, YouTube playlists, and SoundCloud playlists/sets to your library.
+- **Download YouTube and SoundCloud audio:** save individual tracks, YouTube playlists, and SoundCloud playlists/sets as MP3 in your library.
 - **Import your files:** add individual songs or whole folders, with album art when available.
 - **Organize your library:** search, favorite songs, build playlists, and reorder or remove upcoming songs without deleting them.
-- **Adjust the sound:** change speed from 0.5× to 1.5×, add reverb, and adjust bass, mids, and treble while listening.
+- **Make slowed + reverb mixes:** change speed from 0.5× to 1.5×, add real-time reverb, and adjust bass, mids, and treble with EQ while listening.
 - **Keep the music flowing:** blend songs with crossfade and keep your effects as the next song starts.
 - **Save and export:** keep named versions of your mixes and export them as WAV. Your originals stay unchanged.
 - **Make it yours:** choose a built-in theme or save your own background and accent colors.
 
-## Download from YouTube or SoundCloud
+## YouTube and SoundCloud audio & playlist downloads
 
 Click **Import link**, paste a public song or playlist link, then choose **Import audio** or **Import playlist**.
 
@@ -64,7 +64,7 @@ Source installations need the [download-tool setup](docs/usage.md#link-imports) 
 
 </details>
 
-## Make your first mix
+## Make your first slowed + reverb mix
 
 1. Click **Import music** or **Import folder** and choose your audio.
 2. Press **Play**, then try a preset or adjust the sound controls.
