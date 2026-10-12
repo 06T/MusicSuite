@@ -76,6 +76,8 @@ Your original files stay unchanged. You can also try the built-in demo before im
 
 See the [Windows portable guide](docs/windows-portable.md) for launch and update help, or the [user guide](docs/usage.md) for features, backups, and troubleshooting.
 
+Found a bug or have an idea? [Open an issue](https://github.com/06T/MusicSuite/issues/new/choose).
+
 ## License
 
 MusicSuite is **All rights reserved**. Official releases are available for personal use; source code is provided for viewing. See [LICENSE.txt](LICENSE.txt). Bundled third-party tools retain their own licenses and notices.

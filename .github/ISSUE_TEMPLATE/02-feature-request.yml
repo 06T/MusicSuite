@@ -1,0 +1,35 @@
+name: Feature request
+description: Suggest an improvement to MusicSuite.
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Which part of MusicSuite?
+      options:
+        - YouTube / SoundCloud downloads
+        - Playlists and Up Next
+        - Playback, slowed + reverb, and EQ
+        - File and folder imports
+        - Audio export
+        - Themes and appearance
+        - Library and saved mixes
+        - Startup and setup
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe what you want to do and how this would help.
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: What would you like MusicSuite to do?
+      description: Examples or screenshots are welcome. Remove personal information before sharing.
+    validations:
+      required: true

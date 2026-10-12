@@ -1,0 +1,71 @@
+name: Bug report
+description: Report a problem with MusicSuite.
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: dropdown
+    id: category
+    attributes:
+      label: Which part of MusicSuite?
+      options:
+        - YouTube / SoundCloud downloads
+        - Playlists and Up Next
+        - Playback, slowed + reverb, and EQ
+        - File and folder imports
+        - Audio export
+        - Themes and appearance
+        - Library and saved mixes
+        - Startup and setup
+        - Something else
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: MusicSuite version
+      description: Check the ZIP filename or release you downloaded. Write "Not sure" if needed.
+      placeholder: "0.4.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: installation
+    attributes:
+      label: How are you running MusicSuite?
+      options:
+        - Windows portable ZIP
+        - Source installation
+        - Not sure
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Operating system and browser
+      description: Include versions if you know them.
+      placeholder: Windows 11, Microsoft Edge
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: What happened?
+      description: Explain what went wrong and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open MusicSuite.
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Screenshots or error details (optional)
+      description: Attach a screenshot or paste the relevant error. Remove personal paths, private links, and credentials before sharing.
+    validations:
+      required: false
