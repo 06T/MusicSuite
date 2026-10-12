@@ -4,7 +4,7 @@ Download music from YouTube and SoundCloud, import your own files, and make the 
 
 **No account needed. Your library stays on your computer.**
 
-[**Download for Windows**](https://github.com/06T/MusicSuite/releases/download/v0.4.0/MusicSuite-0.4.0-Windows-x64.zip) · [Release notes](https://github.com/06T/MusicSuite/releases/tag/v0.4.0) · [Checksum](https://github.com/06T/MusicSuite/releases/download/v0.4.0/MusicSuite-0.4.0-Windows-x64.zip.sha256)
+[**Download for Windows**](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip) · [Release notes](https://github.com/06T/MusicSuite/releases/tag/v0.4.1) · [Checksum](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip.sha256)
 
 ![MusicSuite music player and sound controls](docs/images/musicsuite-mono.png)
 
@@ -37,7 +37,7 @@ The Windows portable download includes yt-dlp, FFmpeg, and ffprobe, ready to use
 
 **Windows 10 (22H2) or Windows 11, 64-bit:**
 
-1. [Download the Windows ZIP](https://github.com/06T/MusicSuite/releases/download/v0.4.0/MusicSuite-0.4.0-Windows-x64.zip).
+1. [Download the Windows ZIP](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip).
 2. Extract the entire ZIP into a folder.
 3. Double-click **MusicSuite.exe**.
 

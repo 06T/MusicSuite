@@ -2,13 +2,13 @@
 
 ## Open MusicSuite
 
-1. [Download MusicSuite-0.4.0-Windows-x64.zip](https://github.com/06T/MusicSuite/releases/download/v0.4.0/MusicSuite-0.4.0-Windows-x64.zip).
+1. [Download MusicSuite-0.4.1-Windows-x64.zip](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip).
 2. Right-click the ZIP and choose **Extract All**.
 3. Open the extracted folder and double-click **MusicSuite.exe**.
 
 Your browser opens MusicSuite. Import files or folders, or paste a YouTube/SoundCloud song or playlist link. Node.js, yt-dlp, FFmpeg, and ffprobe are included. You do not need administrator access, an installer, Python, or terminal commands.
 
-See the [release notes](https://github.com/06T/MusicSuite/releases/tag/v0.4.0) and [SHA-256 checksum](https://github.com/06T/MusicSuite/releases/download/v0.4.0/MusicSuite-0.4.0-Windows-x64.zip.sha256). If the repository is private, you must sign in to a GitHub account with access to download it.
+See the [release notes](https://github.com/06T/MusicSuite/releases/tag/v0.4.1) and [SHA-256 checksum](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip.sha256). If the repository is private, you must sign in to a GitHub account with access to download it.
 
 Requires **Windows 10 22H2 or Windows 11, x64**, with a modern browser. This package does not target 32-bit Windows or ARM64. Saved music works offline; online imports need internet access.
 
@@ -53,8 +53,8 @@ The build uses Windows PowerShell, `tar.exe`, and the Windows .NET Framework com
 
 Outputs:
 
-- `releases/MusicSuite-0.4.0-Windows-x64.zip`
-- `releases/MusicSuite-0.4.0-Windows-x64.zip.sha256`
+- `releases/MusicSuite-0.4.1-Windows-x64.zip`
+- `releases/MusicSuite-0.4.1-Windows-x64.zip.sha256`
 
 Upload these files to GitHub Releases when publishing. GitHub's **Code → Download ZIP** downloads the source, which still needs setup. No publishing happens as part of the build command.
 
@@ -65,6 +65,6 @@ The build copies an explicit list of application folders. It excludes your libra
 To compare a downloaded ZIP against its checksum:
 
 ```powershell
-Get-FileHash .\MusicSuite-0.4.0-Windows-x64.zip -Algorithm SHA256
-Get-Content .\MusicSuite-0.4.0-Windows-x64.zip.sha256
+Get-FileHash .\MusicSuite-0.4.1-Windows-x64.zip -Algorithm SHA256
+Get-Content .\MusicSuite-0.4.1-Windows-x64.zip.sha256
 ```

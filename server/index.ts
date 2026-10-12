@@ -1,7 +1,8 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { createServer as createHttpServer } from 'node:http';
 import { Library } from './library.ts';
 import { createApp } from './app.ts';
@@ -22,6 +23,10 @@ if (development) {
     console.error('Build MusicSuite first with npm run build, or use npm run dev.');
     library.close(); process.exit(1);
   }
+  const html = readFileSync(path.join(dist, 'index.html'), 'utf8');
+  const bootstrapHashes = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(match => `'sha256-${createHash('sha256').update(match[1]).digest('base64')}'`);
+  const policy = [`default-src 'self'`, `script-src 'self' ${bootstrapHashes.join(' ')}`, `style-src 'self' 'unsafe-inline'`, `img-src 'self' blob: data:`, `media-src 'self' blob:`, `worker-src 'self' blob:`, `connect-src 'self'`, `object-src 'none'`, `base-uri 'none'`, `form-action 'self'`, `frame-ancestors 'none'`].join('; ');
+  app.use((_req, res, next) => { res.setHeader('Content-Security-Policy', policy); next(); });
   app.use(express.static(dist));
   app.get('/{*path}', (_req, res) => res.sendFile(path.join(dist, 'index.html')));
 }

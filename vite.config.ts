@@ -7,6 +7,9 @@ export default defineConfig({
     name: 'appearance-before-paint',
     transformIndexHtml: { order: 'pre', handler: html => html.replace('<!-- appearance-bootstrap -->', `<script>${themeBootstrapScript()}</script>`) },
   }],
-  server: { host: '127.0.0.1', allowedHosts: ['localhost', '127.0.0.1'] },
+  server: {
+    host: '127.0.0.1', allowedHosts: ['localhost', '127.0.0.1'],
+    watch: { ignored: ['**/.cache/**', '**/.tools/**', '**/.npm-cache/**', '**/data/**', '**/releases/**', '**/test-results/**', '**/playwright-report/**', '**/tests/**', '**/docs/**'] },
+  },
   build: { target: 'es2022' },
 });

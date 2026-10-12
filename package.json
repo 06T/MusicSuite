@@ -1,6 +1,7 @@
 {
   "name": "music-suite",
-  "version": "0.4.0",
+  "version": "0.4.1",
+  "license": "UNLICENSED",
   "private": true,
   "type": "module",
   "engines": {
@@ -32,6 +33,5 @@
     "@vitejs/plugin-react": "^6.1.2",
     "typescript": "^7.0.2",
     "vite": "^8.3.4"
-  },
-  "license": "UNLICENSED"
+  }
 }

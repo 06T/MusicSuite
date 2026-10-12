@@ -15,10 +15,14 @@ export function createApp(library: Library, online = new OnlineImports(library))
     const hostname = req.hostname;
     if (!['127.0.0.1', 'localhost', '[::1]'].includes(hostname)) return res.status(403).json({ error: 'MusicSuite is available on localhost only.' });
     res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'no-referrer');
+    if (req.get('Sec-Fetch-Site') === 'cross-site') return res.status(403).json({ error: 'Open MusicSuite locally to use your library.' });
+    if (req.path.startsWith('/api')) res.setHeader('Cache-Control', 'no-store');
+    const origin = req.get('Origin');
+    if (req.path.startsWith('/api') && origin && origin !== `${req.protocol}://${req.get('host')}`) return res.status(403).json({ error: 'Requests must come from MusicSuite.' });
     if (req.path.startsWith('/api') && !['GET', 'HEAD', 'OPTIONS'].includes(req.method)) {
       if (req.get('X-MusicSuite') !== 'local') return res.status(403).json({ error: 'Open MusicSuite locally to make changes.' });
-      const origin = req.get('Origin');
-      if (origin && origin !== `${req.protocol}://${req.get('host')}`) return res.status(403).json({ error: 'Requests must come from MusicSuite.' });
     }
     next();
   });
@@ -26,7 +30,7 @@ export function createApp(library: Library, online = new OnlineImports(library))
   const upload = multer({ dest: path.join(library.directory, 'incoming'), limits: { fileSize: MAX_FILE_SIZE, files: 50 } });
   const coverUpload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024, files: 1 } });
 
-  app.get('/api/health', (_req, res) => res.json({ app: 'MusicSuite', status: 'ok', version: '0.4.0' }));
+  app.get('/api/health', (_req, res) => res.json({ app: 'MusicSuite', status: 'ok', version: '0.4.1' }));
   app.get('/api/library', (_req, res) => res.json({ tracks: library.listTracks(), versions: library.listVersions(), playlists: library.listPlaylists() }));
   app.get('/api/import-tools', async (_req, res) => res.json(await online.tools()));
   app.get('/api/link-imports', (_req, res) => res.json(online.list()));

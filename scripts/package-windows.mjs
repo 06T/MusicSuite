@@ -17,6 +17,7 @@ await mkdir(releases, { recursive: true });
 const working = await mkdtemp(path.join(root, '.cache/portable-build-'));
 const stage = path.join(working, name);
 await mkdir(stage);
+await cp(path.join(root, 'LICENSE.txt'), path.join(stage, 'LICENSE.txt'));
 
 function run(command, args, cwd = root) {
   return new Promise((resolve, reject) => {
@@ -103,7 +104,7 @@ await cp(path.join(root, 'scripts/desktop-host.mjs'), path.join(app, 'scripts/de
 console.log('Installing production dependencies into the package only…');
 await run(process.execPath, [npmCli, 'ci', '--omit=dev', '--ignore-scripts', '--no-audit', '--no-fund'], app);
 
-const appPackage = { name: pkg.name, version: pkg.version, private: true, type: 'module', engines: pkg.engines, dependencies: pkg.dependencies };
+const appPackage = { name: pkg.name, version: pkg.version, license: pkg.license, private: true, type: 'module', engines: pkg.engines, dependencies: pkg.dependencies };
 await writeFile(path.join(app, 'package.json'), JSON.stringify(appPackage, null, 2) + '\n');
 await ps(path.join(root, 'scripts/windows/build-launcher.ps1'), '-OutputDirectory', stage);
 
