@@ -39,13 +39,13 @@ export const UpNext = memo(function UpNext({ tracks, current, playing, collectio
       {loop && <p className="queue-loop-note">Selection loop is on. Upcoming songs wait until you turn it off.</p>}
       {tracks.length ? <ol className="queue-list" aria-label="Upcoming songs">{tracks.map((track, index) => <li key={track.id} data-queue-track={track.id} className={`queue-row ${dragged === track.id ? 'is-dragging' : ''} ${target?.id === track.id ? target.after ? 'drop-after' : 'drop-before' : ''}`}
         onDragOver={event => {
-          if (!event.dataTransfer.types.includes(DRAG_TYPE)) return;
+          if (!new Set(event.dataTransfer.types).has(DRAG_TYPE)) return;
           event.preventDefault(); event.stopPropagation(); event.dataTransfer.dropEffect = 'move';
           const after = dropPosition(event);
           setTarget(previous => previous?.id === track.id && previous.after === after ? previous : { id: track.id, after });
         }}
         onDrop={event => {
-          if (!event.dataTransfer.types.includes(DRAG_TYPE)) return;
+          if (!new Set(event.dataTransfer.types).has(DRAG_TYPE)) return;
           event.preventDefault(); event.stopPropagation();
           const id = event.dataTransfer.getData(DRAG_TYPE);
           onPlace(id, track.id, dropPosition(event)); finishDrag(); setAnnouncement('Upcoming songs reordered.');

@@ -1,3 +1,4 @@
+import { mapConcurrent } from '../shared/async.ts';
 import { randomUUID } from 'node:crypto';
 import { mkdir, readdir, rm, stat } from 'node:fs/promises';
 import path from 'node:path';
@@ -69,9 +70,10 @@ export class OnlineImports {
 
   async shutdown() {
     this.stopped = true;
+    const queued = new Set(this.queue);
     for (const entry of this.entries.values()) if (!isImportFinished(entry.job)) {
       entry.controller.abort(new Error('Import cancelled.'));
-      if (this.queue.includes(entry)) entry.job.state = 'cancelled';
+      if (queued.has(entry)) entry.job.state = 'cancelled';
     }
     this.queue = []; await this.running;
   }
@@ -116,9 +118,10 @@ export class OnlineImports {
     job.collection = { title: clean(metadata.title, 'Imported playlist'), artist: clean(metadata.uploader, providerAlbum(job.provider)), total: items.length, processed: 0, added: 0, duplicates: 0, failed: 0, items };
     job.playlist = this.library.findPlaylistSource(source.provider, source.url, source.id);
     this.updateCollection(job);
-    for (const item of items) {
+
+    await mapConcurrent(items, 1, async item => {
       signal.throwIfAborted();
-      if (item.state === 'failed') continue;
+      if (item.state === 'failed') return;
       try {
         const existing = this.library.findSource(job.provider, item.url!, item.sourceId);
         const result = existing ? { track: existing, duplicate: true } : await this.downloadTrack(entry, item.url!, path.join(directory, String(item.index)), item.sourceId, item);
@@ -128,7 +131,7 @@ export class OnlineImports {
         if (signal.aborted) throw error;
         item.state = 'failed'; item.progress = null; item.error = errorMessage(error); this.updateCollection(job);
       }
-    }
+    }, signal);
     signal.throwIfAborted();
     if (!job.playlist?.trackIds.length) throw new Error('No tracks could be imported. See the track details below and try another public playlist.');
   }

@@ -1,4 +1,4 @@
-import React, { Component, type ReactNode } from 'react';
+import { Component, type ReactNode } from 'react';
 import ReactDOM from 'react-dom/client';
 import '@fontsource/manrope/latin-400.css';
 import '@fontsource/manrope/latin-500.css';

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useId, useRef, useState, type CSSProperties } from 'react';
 import { ArrowClockwise, ArrowCounterClockwise, CaretDown, Check, FloppyDisk, SlidersHorizontal, Waveform } from '@phosphor-icons/react';
 import { DEFAULT_MIX, PRESETS, type AudioEdit, type MixSettings, type SavedVersion, type Track } from '../../shared/types.ts';
 import { dbLabel } from '../api.ts';
@@ -6,10 +6,11 @@ import { TrimEditor } from './TrimEditor.tsx';
 
 function Slider({ label, value, min, max, step = 1, display, onChange, disabled, hint }: { label: string; value: number; min: number; max: number; step?: number; display: string; onChange: (value: number) => void; disabled: boolean; hint?: string }) {
   const fill = (value - min) / (max - min) * 100;
-  return <label className="control-slider"><span className="control-label"><span>{label}</span><output>{display}</output></span>
-    <input aria-label={label} type="range" min={min} max={max} step={step} value={value} onChange={event => onChange(Number(event.target.value))} disabled={disabled} style={{ '--fill': `${fill}%` } as CSSProperties} />
+  const id = useId();
+  return <div className="control-slider"><span className="control-label"><label htmlFor={id}>{label}</label><output htmlFor={id}>{display}</output></span>
+    <input id={id} aria-label={label} type="range" min={min} max={max} step={step} value={value} onChange={event => onChange(Number(event.target.value))} disabled={disabled} style={{ '--fill': `${fill}%` } as CSSProperties} />
     {hint && <span className="control-hint">{hint}</span>}
-  </label>;
+  </div>;
 }
 
 export function Studio({ track, settings, onChange, onSave, versions, onVersion, mixName, peak, edit, duration, position, loop, onEdit, onLoop, onUndo, onRedo, canUndo, canRedo }: {

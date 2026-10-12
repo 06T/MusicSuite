@@ -41,10 +41,11 @@ export const ThemePicker = memo(function ThemePicker() {
     window.addEventListener('storage', sync);
     return () => window.removeEventListener('storage', sync);
   }, []);
+  const editing = editor !== null;
   useEffect(() => {
-    if (editor) nameInput.current?.focus();
+    if (editing) nameInput.current?.focus();
     else if (returnToChoice.current) { gallery.current?.querySelector<HTMLInputElement>('input:checked')?.focus(); returnToChoice.current = false; }
-  }, [!!editor]);
+  }, [editing]);
 
   function persist(next: AppearancePreferences) {
     try { localStorage.setItem(THEME_KEY, JSON.stringify(next)); }
@@ -99,39 +100,57 @@ export const ThemePicker = memo(function ThemePicker() {
       <Palette size={18} /><span>{chosen.name}</span>
     </button>
     {open && <Modal title={editor ? editor.id ? 'Edit theme' : 'Create theme' : 'Appearance'} description={editor ? 'Choose your colors. Text and controls adapt for readability.' : 'Pick a style, or make the listening room your own.'} onClose={close}>
-      {editor ? <form className="custom-theme-editor" onSubmit={save}>
-        <label className="details-field"><span className="field-label">Theme name</span><input ref={nameInput} className="text-input" aria-label="Theme name" value={editor.name} maxLength={40} placeholder="e.g. Violet hour" required onChange={event => { setEditor({ ...editor, name: event.target.value }); setError(''); }} /></label>
+      {editor ? <ThemeEditor editor={editor} palette={palette!} error={error} nameInput={nameInput} validColors={validColors} onSave={save} onNameChange={name => { setEditor({ ...editor, name }); setError(''); }} onColorChange={changeColor} onCancel={() => { setEditor(null); setError(''); }} />
+        : <ThemeGallery preferences={preferences} savedPalettes={savedPalettes} gallery={gallery} error={error} status={status} removed={!!removed} chosenName={chosen.name} onSelect={select} onEdit={startEditor} onRemove={remove} onUndo={undoRemoval} onClose={close} />}
+    </Modal>}
+  </>;
+});
+
+
+type PaletteTokens = ReturnType<typeof createCustomPalette>;
+function ThemeEditor({ editor, palette, error, nameInput, validColors, onSave, onNameChange, onColorChange, onCancel }: {
+  editor: ThemeDraft; palette: PaletteTokens; error: string; nameInput: React.RefObject<HTMLInputElement | null>; validColors: boolean;
+  onSave: (event: FormEvent) => void; onNameChange: (name: string) => void; onColorChange: (key: 'background' | 'accent', hex: string) => void; onCancel: () => void;
+}) {
+  return <form className="custom-theme-editor" onSubmit={onSave}>
+        <label className="details-field"><span className="field-label">Theme name</span><input ref={nameInput} className="text-input" aria-label="Theme name" value={editor.name} maxLength={40} placeholder="e.g. Violet hour" required onChange={event => onNameChange(event.target.value)} /></label>
         <div className="custom-color-fields">{(['background', 'accent'] as const).map(key => <div key={key} className="custom-color-field">
           <span className="field-label">{key === 'background' ? 'Background' : 'Accent'}</span>
-          <div><input type="color" aria-label={`${key === 'background' ? 'Background' : 'Accent'} color`} value={editor[key]} onClick={() => changeColor(key, editor[key])} onChange={event => changeColor(key, event.target.value)} /><input className="text-input" aria-label={`${key === 'background' ? 'Background' : 'Accent'} hex`} value={editor[`${key}Hex`]} maxLength={7} spellCheck={false} autoComplete="off" aria-invalid={!normalizeColor(editor[`${key}Hex`])} onChange={event => changeColor(key, event.target.value)} /></div>
+          <div><input type="color" aria-label={`${key === 'background' ? 'Background' : 'Accent'} color`} value={editor[key]} onClick={() => onColorChange(key, editor[key])} onChange={event => onColorChange(key, event.target.value)} /><input className="text-input" aria-label={`${key === 'background' ? 'Background' : 'Accent'} hex`} value={editor[`${key}Hex`]} maxLength={7} spellCheck={false} autoComplete="off" aria-invalid={!normalizeColor(editor[`${key}Hex`])} onChange={event => onColorChange(key, event.target.value)} /></div>
           {!normalizeColor(editor[`${key}Hex`]) && <small className="color-input-error">Use a 3- or 6-digit hex color.</small>}
         </div>)}</div>
-        <div className="custom-preview-card"><ThemePreview background={editor.background} accent={editor.accent} surface={palette!.tokens['--surface']} /><span>Live preview</span></div>
+        <div className="custom-preview-card"><ThemePreview background={editor.background} accent={editor.accent} surface={palette.tokens['--surface']} /><span>Live preview</span></div>
         <div className="custom-theme-feedback" aria-live="polite">{error && <p className="inline-error" role="alert">{error}</p>}</div>
-        <div className="modal-actions"><button type="button" className="button secondary" onClick={() => { setEditor(null); setError(''); }}>Cancel</button><button className="button primary" type="submit" disabled={!editor.name.trim() || !validColors}>{editor.id ? 'Save changes' : 'Save theme'}</button></div>
-      </form> : <>
+        <div className="modal-actions"><button type="button" className="button secondary" onClick={onCancel}>Cancel</button><button className="button primary" type="submit" disabled={!editor.name.trim() || !validColors}>{editor.id ? 'Save changes' : 'Save theme'}</button></div>
+      </form>;
+}
+
+function ThemeGallery({ preferences, savedPalettes, gallery, error, status, removed, chosenName, onSelect, onEdit, onRemove, onUndo, onClose }: {
+  preferences: AppearancePreferences; savedPalettes: Map<string, PaletteTokens>; gallery: React.RefObject<HTMLFieldSetElement | null>;
+  error: string; status: string; removed: boolean; chosenName: string; onSelect: (id: string) => void;
+  onEdit: (theme?: CustomTheme) => void; onRemove: (theme: CustomTheme) => void; onUndo: () => void; onClose: () => void;
+}) {
+  return <>
         <fieldset ref={gallery} className="theme-gallery"><legend className="sr-only">Theme</legend><div className="theme-options">
           {THEMES.map(item => <label key={item.id} className={`theme-option ${preferences.selected === item.id ? 'is-selected' : ''}`} data-preview={item.id}>
-            <input type="radio" name="theme" value={item.id} checked={preferences.selected === item.id} onChange={() => select(item.id)} aria-label={item.name} />
+            <input type="radio" name="theme" value={item.id} checked={preferences.selected === item.id} onChange={() => onSelect(item.id)} aria-label={item.name} />
             <ThemePreview background={item.background} />
             <span className="theme-option-copy"><strong>{item.name}{item.id === DEFAULT_THEME && <small>Default</small>}</strong><span>{item.description}</span></span>
             <span className="theme-check" aria-hidden="true"><Check size={13} weight="bold" /></span>
           </label>)}
         </div>
-        <div className="custom-themes-heading"><h3>Your themes <span>{preferences.themes.length || ''}</span></h3><button type="button" className="text-button" disabled={preferences.themes.length >= MAX_CUSTOM_THEMES} onClick={() => startEditor()}><Plus size={14} />Create theme</button></div>
+        <div className="custom-themes-heading"><h3>Your themes <span>{preferences.themes.length || ''}</span></h3><button type="button" className="text-button" disabled={preferences.themes.length >= MAX_CUSTOM_THEMES} onClick={() => onEdit()}><Plus size={14} />Create theme</button></div>
         {preferences.themes.length ? <div className="theme-options custom-theme-options">{preferences.themes.map(item => <div key={item.id} className="custom-theme-tile">
           <label className={`theme-option ${preferences.selected === item.id ? 'is-selected' : ''}`}>
-            <input type="radio" name="theme" value={item.id} checked={preferences.selected === item.id} onChange={() => select(item.id)} aria-label={item.name} />
+            <input type="radio" name="theme" value={item.id} checked={preferences.selected === item.id} onChange={() => onSelect(item.id)} aria-label={item.name} />
             <ThemePreview background={item.background} accent={item.accent} surface={savedPalettes.get(item.id)!.tokens['--surface']} />
             <span className="theme-option-copy"><strong title={item.name}>{item.name}</strong><span>{item.background} · {item.accent}</span></span>
             <span className="theme-check" aria-hidden="true"><Check size={13} weight="bold" /></span>
-          </label><div className="custom-theme-actions"><button className="text-button" aria-label={`Edit ${item.name} theme`} onClick={() => startEditor(item)}><PencilSimple size={13} />Edit</button><button className="icon-button small" aria-label={`Delete ${item.name} theme`} onClick={() => remove(item)}><Trash size={14} /></button></div>
+          </label><div className="custom-theme-actions"><button className="text-button" aria-label={`Edit ${item.name} theme`} onClick={() => onEdit(item)}><PencilSimple size={13} />Edit</button><button className="icon-button small" aria-label={`Delete ${item.name} theme`} onClick={() => onRemove(item)}><Trash size={14} /></button></div>
         </div>)}</div> : <p className="custom-themes-empty">Your colors, saved for your next listening session.</p>}
         </fieldset>
-        <div className="custom-theme-feedback" aria-live="polite">{error ? <p className="inline-error" role="alert">{error}</p> : <span>{status}</span>}{removed && <button className="text-button" onClick={undoRemoval}>Undo delete</button>}</div>
-        <div className="theme-picker-footer"><button className="text-button" disabled={preferences.selected === DEFAULT_THEME} onClick={() => select(DEFAULT_THEME)}>Reset to Mono</button><span role="status" className="sr-only">{chosen.name} theme selected</span><button className="button primary" onClick={close}>Done</button></div>
+        <div className="custom-theme-feedback" aria-live="polite">{error ? <p className="inline-error" role="alert">{error}</p> : <span>{status}</span>}{removed && <button className="text-button" onClick={onUndo}>Undo delete</button>}</div>
+        <div className="theme-picker-footer"><button className="text-button" disabled={preferences.selected === DEFAULT_THEME} onClick={() => onSelect(DEFAULT_THEME)}>Reset to Mono</button><span role="status" className="sr-only">{chosenName} theme selected</span><button className="button primary" onClick={onClose}>Done</button></div>
         <p className="theme-save-note">Themes are saved on this browser.</p>
-      </>}
-    </Modal>}
-  </>;
-});
+      </>;
+}
