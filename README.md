@@ -1,19 +1,20 @@
-# MusicSuite — Slowed + Reverb Music Player
+# MusicSuite — Slowed + Reverb and Nightcore Music Player
 
-A local music player, slowed + reverb editor, and YouTube/SoundCloud audio downloader. Download tracks and playlists, adjust speed, reverb, and EQ in real time, then save your mix or export it as WAV.
+A local music player for slowed + reverb and nightcore mixes, with YouTube/SoundCloud audio downloads. Download tracks and playlists, adjust speed, reverb, and EQ in real time, then save your mix or export it as WAV.
 
 **No account needed. Your library stays on your computer.**
 
 [**Download for Windows**](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip) · [Release notes](https://github.com/06T/MusicSuite/releases/tag/v0.4.1) · [Checksum](https://github.com/06T/MusicSuite/releases/download/v0.4.1/MusicSuite-0.4.1-Windows-x64.zip.sha256)
 
-![MusicSuite slowed and reverb music player, audio library, and live EQ controls](docs/images/musicsuite-mono.png)
+![MusicSuite music player, audio library, and live speed, reverb, and EQ controls](docs/images/musicsuite-mono.png)
 
 ## What you can do
 
 - **Download YouTube and SoundCloud audio:** save individual tracks, YouTube playlists, and SoundCloud playlists/sets as MP3 in your library.
 - **Import your files:** add individual songs or whole folders, with album art when available.
 - **Organize your library:** search, favorite songs, build playlists, and reorder or remove upcoming songs without deleting them.
-- **Make slowed + reverb mixes:** change speed from 0.5× to 1.5×, add real-time reverb, and adjust bass, mids, and treble with EQ while listening.
+- **Make slowed + reverb mixes:** slow songs down to 0.5×, add real-time reverb, and adjust bass, mids, and treble with EQ while listening.
+- **Make nightcore mixes:** speed songs up to 1.5× with a higher pitch, then fine-tune EQ and reverb while listening.
 - **Keep the music flowing:** blend songs with crossfade and keep your effects as the next song starts.
 - **Save and export:** keep named versions of your mixes and export them as WAV. Your originals stay unchanged.
 - **Make it yours:** choose a built-in theme or save your own background and accent colors.
@@ -64,11 +65,13 @@ Source installations need the [download-tool setup](docs/usage.md#link-imports) 
 
 </details>
 
-## Make your first slowed + reverb mix
+## Make your first mix
 
 1. Click **Import music** or **Import folder** and choose your audio.
 2. Press **Play**, then try a preset or adjust the sound controls.
 3. Click **Save version** to keep your mix, or **Export mix** to download it.
+
+For **slowed + reverb**, lower Speed below 1.0× and add reverb. For **nightcore**, raise Speed above 1.0×—try 1.2× to start. Pitch changes with speed.
 
 Your original files stay unchanged. You can also try the built-in demo before importing anything.
 

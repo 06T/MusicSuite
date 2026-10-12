@@ -38,6 +38,8 @@ The sound studio offers four presets—Original, Slow & spacious, Warm vinyl, an
 | Bass, mids, treble | −12 to +12 dB each |
 | Output gain | −24 to +6 dB |
 
+For **slowed + reverb**, set Speed below 1.0× and add reverb. For **nightcore**, set Speed above 1.0×—try 1.2× to start, or go up to 1.5×. Pitch rises with speed. Both styles work with live EQ and reverb and can be saved as versions or exported as WAV.
+
 Adjustments are non-destructive. **Save version** stores a named mix and its trim/fade settings beside the original track. Temporary drafts are browser-specific; saved versions live in SQLite.
 
 Trim points use seconds in the original recording. Fade durations use seconds in the resulting mix and are capped at half its duration so they do not overlap. The waveform supports seeking across its full height, and selection looping previews the trimmed range.
